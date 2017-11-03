@@ -11,3 +11,7 @@ Windows运行库
 > figlet
 
 字符画工具
+
+> uptime
+
+查看系统运行时间
