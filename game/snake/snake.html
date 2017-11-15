@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Snake</title>
+<style type="text/css">
+html,body{margin: 0;padding: 0}
+#table{border-color: #fafafa;float: left;}
+#table td{width: 10px;height: 10px;font-size: 0;line-height: 0;border-color: #fafafa}
+#table td.p{background: #000}
+#table td.l{background: #999}
+#table td.d{background: #fff}
+#table td.f{background: red}
+#view{float: left;margin-left: 30px}
+</style>
+</head>
+<body>
+<table id="table" cellpadding="0" cellspacing="0" border="1"></table>
+<div id="view">Score : <span id="score"></span><br>Level : <span id="level"></span></div>
+</body>
+<script type="text/javascript">
+function draw_table(r,c){
+    var html = '';
+    for(var i = 0; i < r; i++){
+        html += '<tr>';
+        for(var j = 0; j < c; j++){
+            html += '<td id="'+i+'_'+j+'" class="d"></td>';
+        }
+        html += '</tr>';
+    }
+    document.getElementById('table').innerHTML = html;
+}
+
+function start(){
+    if(timer) window.clearInterval(timer);
+    draw_table(50,50);
+    p = [5,5];l = [p];
+    food();
+    Snake.point(p);
+    speed = 500;
+    document.getElementById('score').innerHTML = score = 0;
+    document.getElementById('level').innerHTML = level = 1;
+}
+
+function food(){
+    var a = document.getElementsByClassName('d');
+    var i = parseInt(Math.random()*(a.length)+1);
+    var id = a[i-1]['id'];
+    f = id.split('_');
+    document.getElementById(id).className = 'f';
+}
+
+function lose(){
+    alert('Game over -- Score : '+score);
+    start();
+}
+
+var p = [], l = [], f = [], k = 0, speed, timer, score, level;
+
+function run(key){
+    key = parseInt(key);
+    var pp = p.concat();
+    var ppp = [];
+    switch(key){
+        // up
+        case 38: p[0]--; break;
+        // down
+        case 40: p[0]++; break;
+        // left
+        case 37: p[1]--; break;
+        // right
+        case 39: p[1]++; break;
+        default: return;
+    }
+
+    // lose
+    var td = document.getElementById(p[0]+'_'+p[1]);
+    if(!td || (td.className != 'd' && td.className != 'f')){
+        lose();return;
+    }
+
+    // food
+    if(p[0]==f[0] && p[1]==f[1]){
+        food();
+        score++;
+        level = parseInt(score/10) + 1;
+        speed = 550 - level * 50;speed = speed < 50 ? 50 : speed;
+        document.getElementById('score').innerHTML = score;
+        document.getElementById('level').innerHTML = level;
+    }else{
+        ppp = l.pop();
+    }
+    
+    l.unshift(p.concat());
+
+    if(l.length==1){
+        ppp = pp;
+    }
+    
+    Snake.point(p);
+    Snake.on(pp);
+    if(ppp.length>0) Snake.off(ppp);
+}
+
+var Snake = {
+    point: function(a){
+        document.getElementById(a[0]+'_'+a[1]).className = 'p';
+    },
+    on: function(a){
+        document.getElementById(a[0]+'_'+a[1]).className = 'l';
+    },
+    off: function(a){
+        document.getElementById(a[0]+'_'+a[1]).className = 'd';
+    }
+}
+
+window.onload = function(){
+    start();
+}
+
+window.onkeydown = function(e){
+    k = window.event ? e.keyCode : e.which;
+    run(k);
+    if(timer) window.clearInterval(timer);
+}
+
+window.onkeyup = function(e){
+    if(timer) window.clearInterval(timer);
+    timer = window.setInterval(function(){
+        run(k);
+    },speed);
+}
+</script>
+</html>
