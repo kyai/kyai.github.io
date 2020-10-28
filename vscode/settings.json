@@ -1,0 +1,44 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/*.tmp": true
+    },
+    "editor.fontSize": 14,
+    "editor.snippetSuggestions": "top",
+    "window.zoomLevel": -1,
+    "workbench.startupEditor": "none",
+    "workbench.activityBar.visible": true,
+    "workbench.statusBar.feedback.visible": false,
+    "workbench.colorCustomizations": {
+        "statusBar.background": "#000",
+        "statusBar.noFolderBackground": "#000",
+        "statusBar.debuggingBackground": "#511f1f"
+    },
+    "explorer.compactFolders": false,
+    "terminal.integrated.shell.osx": "/bin/bash",
+    "extensions.autoUpdate": false,
+    "extensions.showRecommendationsOnlyOnDemand": true,
+
+    "go.lintFlags": ["--disable=all", "--enable=errcheck"],
+    "go.useCodeSnippetsOnFunctionSuggest": true,
+    "go.autocompleteUnimportedPackages": true,
+    "go.formatTool": "goimports",
+    "go.useLanguageServer": false,
+    "php.executablePath": "/usr/bin/php",
+    
+    "sync.gist": "da37fc8785828185e4881c44e190c769",
+    "sync.quietSync": false,
+    "sync.askGistName": false,
+    "sync.syncExtensions": false,
+    "sync.autoDownload": false,
+    "sync.autoUpload": false,
+    "sync.forceDownload": false,
+    "powermode.enabled": true,
+    "powermode.enableShake": false,
+    "powermode.enableStatusBarComboCounter": false,
+    "powermode.enableStatusBarComboTimer": false,
+}
